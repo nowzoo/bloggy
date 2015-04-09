@@ -18,6 +18,7 @@
   "homepage": "https://github.com/nowzoo/bloggy",
   "dependencies": {
     "aws-sdk": "^2.1.22",
-    "commander": "^2.7.1"
+    "commander": "^2.7.1",
+    "inquirer": "^0.8.2"
   }
 }
