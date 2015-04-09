@@ -1,0 +1,22 @@
+{
+  "name": "nowzoo-bloggy",
+  "version": "1.0.0",
+  "description": "Static blogging with node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nowzoo/bloggy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nowzoo/bloggy/issues"
+  },
+  "homepage": "https://github.com/nowzoo/bloggy",
+  "dependencies": {
+    "aws-sdk": "^2.1.22"
+  }
+}
