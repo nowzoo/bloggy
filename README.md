@@ -1,0 +1,2 @@
+# bloggy
+Static blog
