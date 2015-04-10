@@ -1,7 +1,11 @@
 var program = require('commander');
 
 program
-    .command('init', 'initialize a site');
+    .command('init')
+    .description('initialize the site')
+    .action(function(){
+        require('./init')
+    });
 program.parse(process.argv);
 
 
