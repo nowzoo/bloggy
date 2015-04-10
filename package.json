@@ -23,6 +23,7 @@
     "inquirer": "^0.8.2",
     "jsonfile": "^2.0.0",
     "marked": "^0.3.3",
+    "moment": "^2.10.2",
     "pygmentize-bundled": "^2.3.0",
     "rimraf": "^2.3.2",
     "swig": "^1.4.2",
