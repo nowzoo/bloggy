@@ -2,7 +2,7 @@
   "name": "nowzoo-bloggy",
   "version": "1.0.0",
   "description": "Static blogging with node.",
-  "main": "index.js",
+  "main": "bloggy.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,14 +11,21 @@
     "url": "https://github.com/nowzoo/bloggy.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/nowzoo/bloggy/issues"
   },
   "homepage": "https://github.com/nowzoo/bloggy",
   "dependencies": {
+    "async": "^0.9.0",
     "aws-sdk": "^2.1.22",
     "commander": "^2.7.1",
-    "inquirer": "^0.8.2"
+    "inquirer": "^0.8.2",
+    "jsonfile": "^2.0.0",
+    "marked": "^0.3.3",
+    "pygmentize-bundled": "^2.3.0",
+    "rimraf": "^2.3.2",
+    "swig": "^1.4.2",
+    "underscore": "^1.8.3"
   }
 }
