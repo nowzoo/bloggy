@@ -1,11 +1,7 @@
 var program = require('commander');
-var cwd = process.cwd();
+
 program
-    .command('init')
-    .description('initialize a site')
-    .action(function(){
-        console.log('Initializing a site in %s', cwd);
-    });
+    .command('init', 'initialize a site');
 program.parse(process.argv);
 
 
