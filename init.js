@@ -1,3 +1,5 @@
+var rimraf = require('rimraf');
+var jf = require('jsonfile');
 var async = require('async');
 var inquirer = require('inquirer');
 var path = require('path');
@@ -5,6 +7,10 @@ var fs = require('fs');
 var _ = require('underscore');
 var constants = require('./const');
 var cwd = process.cwd();
+
+
+var not_fresh_err = null;
+var site_settings = null;
 
 var is_fresh_init_directory = function(dir, callback){
     fs.readdir(dir, function(err, files){
@@ -43,7 +49,7 @@ var site_settings_prompt = function(callback){
 };
 
 
-var not_fresh_err = null;
+
 async.series(
     [
         function(callback){
@@ -67,8 +73,22 @@ async.series(
         },
         function(callback){
             site_settings_prompt(function(settings){
-                console.log(settings);
+                site_settings = settings;
+                callback(null);
             });
+        },
+        //delete the site directory if it exists...
+        function(callback){
+            if (! not_fresh_err) return callback(null);
+            rimraf(path.join(cwd, constants.paths.site), callback);
+        },
+        //create the site directory...
+        function(callback){
+            fs.mkdir(path.join(cwd, constants.paths.site), callback)
+        },
+        //create site.json...
+        function(callback){
+            jf.writeFile(path.join(cwd, constants.paths.site, site_settings, 'site.json'), callback)
         }
     ]
 );
