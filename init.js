@@ -1,4 +1,5 @@
 var rimraf = require('rimraf');
+var ncp = require('ncp').ncp;
 var jf = require('jsonfile');
 var async = require('async');
 var inquirer = require('inquirer');
@@ -18,7 +19,7 @@ var is_fresh_init_directory = function(dir, callback){
             return callback(err.toString());
         }
         if (_.indexOf(files, constants.paths.site) !== -1){
-            return callback('A site has already been initialized in this directory: ' + path.join(dir, constants.paths.site) + 'already exists.');
+            return callback('A site has already been initialized in this directory. ' + path.join(dir, constants.paths.site) + ' already exists.');
         }
         return callback(null)
     });
@@ -30,8 +31,11 @@ var overwrite_site_prompt = function(not_fresh_error, callback){
         type: 'confirm',
         default: false,
         name: 'overwrite',
-        message: not_fresh_error + ' Are you sure you want to overwrite the site?'
+        message: 'Are you sure you want to overwrite the site?'
     });
+    console.log('');
+    console.warn(not_fresh_error);
+    console.log('');
     inquirer.prompt(questions, function(answers){
         callback(answers.overwrite);
     })
@@ -45,6 +49,13 @@ var site_settings_prompt = function(callback){
         name: 'title',
         message: 'Site title:'
     });
+    questions.push({
+        type: 'text',
+        default: 'en',
+        name: 'language',
+        message: 'Language:'
+    });
+    console.log('');
     inquirer.prompt(questions, callback);
 };
 
@@ -84,12 +95,30 @@ async.series(
         },
         //create the site directory...
         function(callback){
-            fs.mkdir(path.join(cwd, constants.paths.site), callback)
+            fs.mkdir(path.join(cwd, constants.paths.site), callback);
         },
         //create site.json...
         function(callback){
-            jf.writeFile(path.join(cwd, constants.paths.site, site_settings, 'site.json'), callback)
-        }
+            jf.writeFile(path.join(cwd, constants.paths.site, 'site.json'), site_settings, callback);
+        },
+        //make the themes directory...
+        function(callback){
+            ncp(path.join(cwd, 'themes'), path.join(cwd, constants.paths.site, 'themes'), callback);
+
+
+        },
+        //make the content directory...
+        function(callback){
+            fs.mkdir(path.join(cwd, constants.paths.site, 'content'), callback);
+        },
+        //make the posts directory...
+        function(callback){
+            fs.mkdir(path.join(cwd, constants.paths.site, 'content', 'posts'), callback);
+        },
+        //make the pages directory...
+        function(callback){
+            fs.mkdir(path.join(cwd, constants.paths.site, 'content', 'pages'), callback);
+        },
     ]
 );
 
