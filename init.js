@@ -103,7 +103,7 @@ async.series(
         },
         //make the themes directory...
         function(callback){
-            ncp(path.join(cwd, 'themes'), path.join(cwd, constants.paths.site, 'themes'), callback);
+            ncp(path.join(__dirname, 'themes'), path.join(cwd, constants.paths.site, 'themes'), callback);
 
 
         },
